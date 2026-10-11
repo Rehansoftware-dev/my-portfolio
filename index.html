@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<title>Front-End Developer Portfolio</title>
+<style>
+:root{
+  --bg:#f6f7fb;--surface:#fff;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;
+  --accent:#4338ca;--accent-ink:#fff;--mark:#2dd4bf;--thumb:#eef0fb;
+  --serif:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1120;--surface:#111a2e;--ink:#e2e8f0;--muted:#94a3b8;--line:#1e2a44;--accent:#818cf8;--accent-ink:#0b1120;--mark:#2dd4bf;--thumb:#18223d;}}
+:root[data-theme="dark"]{--bg:#0b1120;--surface:#111a2e;--ink:#e2e8f0;--muted:#94a3b8;--line:#1e2a44;--accent:#818cf8;--accent-ink:#0b1120;--mark:#2dd4bf;--thumb:#18223d;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:var(--serif);line-height:1.15;margin:0;font-weight:700;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1100px,100% - 2.5rem);margin-inline:auto}
+section{padding:5rem 0}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:.6rem}
+.lede{color:var(--muted);max-width:60ch;margin-bottom:2.2rem}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.logo{font-family:var(--serif);font-weight:700;font-size:1.2rem;text-decoration:none}
+nav{display:flex;align-items:center;gap:1.4rem}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem}
+nav a:hover{color:var(--ink)}
+.icon-btn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:.4rem .7rem;cursor:pointer;font:inherit;font-size:.9rem}
+#menu{display:none}
+@media(max-width:700px){
+  #menu{display:inline-block}
+  nav{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:1rem 1.25rem;display:none}
+  nav.open{display:flex}
+}
+
+/* hero */
+.hero{padding-top:4rem}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.3rem,5.6vw,3.8rem);letter-spacing:-.035em;font-weight:800}
+.hero p.lede{margin:1.2rem 0 1.8rem;font-size:1.1rem}
+.btn{display:inline-block;padding:.75rem 1.3rem;border-radius:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:600;border:2px solid var(--accent);cursor:pointer;font:inherit;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);margin-left:.5rem}
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem;box-shadow:0 12px 32px -12px rgba(15,23,42,.18)}
+.lab-controls{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
+.lab-controls button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:.3rem .8rem;cursor:pointer;font:inherit;font-size:.85rem}
+.lab-controls button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#stage{display:flex;gap:10px;min-height:210px;padding:10px;border:2px dashed var(--line);border-radius:10px;transition:gap .2s}
+#stage span{background:var(--accent);color:var(--accent-ink);border-radius:6px;min-width:44px;min-height:44px;display:grid;place-items:center;font-weight:700}
+#stage span:nth-child(2n){background:var(--mark);color:#04201c}
+.gap-row{display:flex;align-items:center;gap:.6rem;margin:.8rem 0 .5rem;font-size:.85rem;color:var(--muted)}
+.gap-row input{flex:1;accent-color:var(--accent)}
+pre{margin:0;font:.82rem/1.5 var(--mono);color:var(--muted);white-space:pre-wrap}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media(max-width:900px){.skills{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.skills{grid-template-columns:1fr}}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem}
+.skill:first-child{grid-column:span 2}
+@media(max-width:520px){.skill:first-child{grid-column:auto}}
+.skill h3{font-size:1.15rem;margin-bottom:.35rem}
+.skill p{color:var(--muted);font-size:.93rem}
+.also{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.also span{border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;font-size:.9rem;background:var(--surface)}
+
+/* projects */
+.filters{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
+.filters button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:.4rem .9rem;cursor:pointer;font:inherit}
+.filters button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.projects{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2rem}
+.proj{grid-column:span 2;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.proj.big{grid-column:span 4;flex-direction:row}
+.proj[hidden]{display:none}
+.thumb{min-height:150px;flex:1;display:grid;place-items:center;padding:1rem;background:var(--thumb)!important}
+.big .thumb{flex:1.2;min-height:230px}
+.proj .txt{padding:1.1rem;flex:1}
+.proj h3{font-size:1.2rem;margin-bottom:.3rem}
+.proj p{color:var(--muted);font-size:.93rem;margin-bottom:.6rem}
+.tags{font-size:.8rem;color:var(--muted)}
+@media(max-width:860px){.proj,.proj.big{grid-column:span 6}.proj.big{flex-direction:column}}
+/* css-drawn thumbnails */
+.m{width:100%;max-width:230px;background:#fff;border-radius:8px;padding:10px;display:grid;gap:6px;box-shadow:0 0 0 1px #0002}
+.m i{display:block;height:8px;border-radius:3px;background:#d5deea}
+.m i.h{height:26px;background:var(--accent)!important}.m i.s{width:60%}.m b{display:block;height:34px;border-radius:5px;background:var(--mark)!important}
+.m .row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.m .row u{height:30px;background:#d5deea;border-radius:4px}
+
+/* process + contact */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:1rem;counter-reset:s}
+.steps li{counter-increment:s;padding-left:2.6rem;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:.9rem}
+.steps strong{display:block}
+.steps span{color:var(--muted);font-size:.93rem}
+form{display:grid;gap:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.3rem}
+label{display:grid;gap:.3rem;font-weight:600;font-size:.92rem}
+input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.65rem .8rem}
+textarea{min-height:120px;resize:vertical}
+.err{color:#d6336c;font-weight:400;font-size:.85rem;min-height:1.1em}
+#status{font-size:.92rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:1.8rem 0;color:var(--muted);font-size:.9rem}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">Your Name</a>
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <nav id="nav" aria-label="Main">
+        <a href="#skills">Skills</a><a href="#work">Projects</a><a href="#process">Process</a><a href="#contact">Contact</a>
+      </nav>
+      <button class="icon-btn" id="theme" aria-label="Switch color theme">Theme</button>
+      <button class="icon-btn" id="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>I build websites that fit every screen.</h1>
+      <p class="lede">Front-end developer working with HTML5, CSS3 and JavaScript. Landing pages, portfolios and business sites that load fast, look sharp and work on mobile, tablet and desktop.</p>
+      <a class="btn" href="#work">See my projects</a><a class="btn ghost" href="#contact">Hire me</a>
+    </div>
+    <div class="lab" aria-label="Layout demo">
+      <div class="lab-controls" role="group" aria-label="Layout mode">
+        <button data-mode="row" aria-pressed="true">Flex row</button>
+        <button data-mode="col" aria-pressed="false">Flex column</button>
+        <button data-mode="grid" aria-pressed="false">Grid</button>
+      </div>
+      <div id="stage"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+      <div class="gap-row"><label for="gap" style="display:inline;font-weight:400">Gap</label><input id="gap" type="range" min="0" max="40" value="10"><output id="gapv">10px</output></div>
+      <pre id="code"></pre>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <p class="lede">The tools I use every day to turn a design into a working site.</p>
+    <div class="skills">
+      <div class="skill"><h3>HTML5</h3><p>Semantic, accessible page structure that search engines and screen readers understand.</p></div>
+      <div class="skill"><h3>CSS3</h3><p>Styling, color, layout and design, from typography to transitions.</p></div>
+      <div class="skill"><h3>JavaScript</h3><p>Interactive features: menus, filters, forms and live widgets.</p></div>
+      <div class="skill"><h3>Responsive design</h3><p>One site that works on mobile, tablet and desktop.</p></div>
+      <div class="skill"><h3>CSS Flexbox</h3><p>Rows and columns that align and wrap cleanly.</p></div>
+      <div class="skill"><h3>CSS Grid</h3><p>Structured two-dimensional page layouts.</p></div>
+      <div class="skill"><h3>Landing pages</h3><p>Single-page sites built to get one job done.</p></div>
+      <div class="skill"><h3>Front-end development</h3><p>HTML, CSS and JavaScript working together as one product.</p></div>
+    </div>
+    <div class="also" aria-label="Related skills">
+      <span>Website styling and customization</span><span>Basic front-end bug fixing</span><span>Website layout design</span><span>Portfolio and business websites</span>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="lede">Sample projects. Replace these with your own work and links.</p>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button data-f="all" aria-pressed="true">All</button><button data-f="landing" aria-pressed="false">Landing pages</button><button data-f="portfolio" aria-pressed="false">Portfolios</button><button data-f="business" aria-pressed="false">Business sites</button>
+    </div>
+    <div class="projects">
+      <article class="proj big" data-c="landing">
+        <div class="thumb" style="background:#dbe6ff"><div class="m"><i class="h"></i><i></i><i class="s"></i><b></b></div></div>
+        <div class="txt"><h3>Product launch page</h3><p>A single-page site with a hero, feature grid and sign-up form. Fully responsive, with a countdown built in JavaScript.</p><div class="tags">HTML5, CSS Grid, JavaScript</div></div>
+      </article>
+      <article class="proj" data-c="portfolio">
+        <div class="thumb" style="background:#ffe9b8"><div class="m"><i class="h" style="background:#12263a"></i><div class="row"><u></u><u></u><u></u></div><i class="s"></i></div></div>
+        <div class="txt"><h3>Photographer portfolio</h3><p>Filterable gallery with a keyboard-friendly lightbox.</p><div class="tags">CSS Flexbox, JavaScript</div></div>
+      </article>
+      <article class="proj" data-c="business">
+        <div class="thumb" style="background:#d9f2e6"><div class="m"><i class="h" style="background:#1d8a5b"></i><i></i><div class="row"><u></u><u></u><u></u></div></div></div>
+        <div class="txt"><h3>Cafe website</h3><p>Menu, opening hours and a contact form for a local business.</p><div class="tags">HTML5, CSS3, responsive</div></div>
+      </article>
+      <article class="proj" data-c="business">
+        <div class="thumb" style="background:#f3ddf0"><div class="m"><i class="h" style="background:#a23b8f"></i><b style="background:#d5deea"></b><i></i></div></div>
+        <div class="txt"><h3>Studio services page</h3><p>Pricing table and booking form with live validation.</p><div class="tags">CSS Grid, JavaScript</div></div>
+      </article>
+      <article class="proj" data-c="portfolio">
+        <div class="thumb" style="background:#e3e8ee"><div class="m"><i class="h" style="background:#4d6176"></i><i class="s"></i><i></i><i class="s"></i></div></div>
+        <div class="txt"><h3>Developer résumé site</h3><p>Dark-mode ready personal site with a timeline of experience.</p><div class="tags">HTML5, CSS3</div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap two">
+    <div>
+      <h2>How I work</h2>
+      <p class="lede">A simple process from first message to launch.</p>
+      <ol class="steps">
+        <li><strong>Plan</strong><span>We agree on the goal, pages and content.</span></li>
+        <li><strong>Design the layout</strong><span>I sketch the structure for mobile first, then larger screens.</span></li>
+        <li><strong>Build</strong><span>Clean HTML, CSS and JavaScript, tested in modern browsers.</span></li>
+        <li><strong>Fix and polish</strong><span>I squash front-end bugs and adjust styling until it feels right.</span></li>
+      </ol>
+    </div>
+    <div id="contact">
+      <h2>Contact</h2>
+      <p class="lede">Tell me about your project.</p>
+      <form id="form" novalidate>
+        <label>Name<input id="n" autocomplete="name"><span class="err" id="en"></span></label>
+        <label>Email<input id="e" type="email" autocomplete="email"><span class="err" id="ee"></span></label>
+        <label>Message<textarea id="m"></textarea><span class="err" id="em"></span></label>
+        <button class="btn" type="submit">Send message</button>
+        <p id="status" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span id="yr"></span> Your Name. Built with HTML, CSS and JavaScript.</div></footer>
+
+<script>
+// theme (storage is optional; page works without it)
+var root=document.documentElement,tb=document.getElementById('theme');
+try{var t=localStorage.getItem('theme');if(t)root.setAttribute('data-theme',t)}catch(e){}
+tb.onclick=function(){
+  var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+  var next=dark?'light':'dark';root.setAttribute('data-theme',next);
+  try{localStorage.setItem('theme',next)}catch(e){}
+};
+// mobile menu
+var nav=document.getElementById('nav'),mb=document.getElementById('menu');
+mb.onclick=function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)};
+nav.onclick=function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}};
+// layout lab
+var stage=document.getElementById('stage'),code=document.getElementById('code'),gap=document.getElementById('gap'),gv=document.getElementById('gapv'),mode='row';
+function paint(){
+  var g=gap.value+'px';gv.textContent=g;stage.style.gap=g;
+  var css={row:'display: flex;\nflex-direction: row;\nflex-wrap: wrap;',col:'display: flex;\nflex-direction: column;',grid:'display: grid;\ngrid-template-columns: repeat(3, 1fr);'}[mode];
+  stage.style.display=mode==='grid'?'grid':'flex';
+  stage.style.flexDirection=mode==='col'?'column':'row';
+  stage.style.flexWrap=mode==='row'?'wrap':'nowrap';
+  stage.style.gridTemplateColumns=mode==='grid'?'repeat(3,1fr)':'';
+  code.textContent=css+'\ngap: '+g+';';
+}
+document.querySelectorAll('[data-mode]').forEach(function(b){b.onclick=function(){
+  mode=b.dataset.mode;document.querySelectorAll('[data-mode]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});paint()}});
+gap.oninput=paint;paint();
+// project filter
+document.querySelectorAll('[data-f]').forEach(function(b){b.onclick=function(){
+  var f=b.dataset.f;document.querySelectorAll('[data-f]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+  document.querySelectorAll('.proj').forEach(function(p){p.hidden=!(f==='all'||p.dataset.c===f)});
+  var vis=[].filter.call(document.querySelectorAll('.proj'),function(p){return !p.hidden});
+  document.querySelectorAll('.proj').forEach(function(p){p.classList.toggle('big',p===vis[0]&&vis.length>1&&f==='all')});
+}});
+// contact form validation
+document.getElementById('form').onsubmit=function(ev){
+  ev.preventDefault();
+  var n=document.getElementById('n').value.trim(),e=document.getElementById('e').value.trim(),m=document.getElementById('m').value.trim(),ok=true;
+  function set(id,msg){document.getElementById(id).textContent=msg;if(msg)ok=false}
+  set('en',n?'':'Enter your name.');
+  set('ee',/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)?'':'Enter a valid email address.');
+  set('em',m.length>=10?'':'Write at least 10 characters.');
+  document.getElementById('status').textContent=ok?'Thanks, '+n+'. Your message is ready to send. Connect this form to your email service to deliver it.':'';
+};
+document.getElementById('yr').textContent='\u00a9 '+new Date().getFullYear();
+</script>
+</body>
+</html>
